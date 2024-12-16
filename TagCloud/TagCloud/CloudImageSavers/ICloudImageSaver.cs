@@ -1,6 +1,6 @@
 ﻿using System.Drawing;
 
-namespace TagCloud.CloudImageSaver;
+namespace TagCloud.CloudImageSavers;
 
 public interface ICloudImageSaver
 {

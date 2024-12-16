@@ -7,7 +7,8 @@ public static class CloudGenerator
     public static ICloudLayouter GenerateRandomCloudWithCenter(Point center, int rectangleCount)
     {
         var random = new Random();
-        var layouter = new CircularCloudLayouter(center);
+        var layouter = new CircularCloudLayouter(
+            new SpiralPositionGenerator(new(0.5, 0.1, center)));
 
         for (var i = 0; i < rectangleCount; i++)
         {

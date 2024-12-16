@@ -15,7 +15,8 @@ public class CircularCloudLayouterTests
     [TestCase(1, -1, TestName = "Negative height")]
     public void Layouter_ThrowArgumentException_WithUncorrectData(int width, int height)
     {
-        var layouter = new CircularCloudLayouter(new(0, 0));
+        var layouter = new CircularCloudLayouter(
+            new SpiralPositionGenerator(new(0.5, 0.1, new(0,0))));
         var size = new Size(width, height);
         Action action = () => layouter.PutNextRectangle(size);
 
@@ -26,7 +27,8 @@ public class CircularCloudLayouterTests
     [TestCase(1, 1, TestName = "Non-zero center")]
     public void LayouterPutFirstRectangleInCenter(int x, int y)
     {
-        var layouter = new CircularCloudLayouter(new(x, y));
+        var layouter = new CircularCloudLayouter(
+            new SpiralPositionGenerator(new(0.5, 0.1, new(x, y))));
         var rectangleSize = new Size(10, 10);
 
         var actualRectangle = layouter.PutNextRectangle(rectangleSize);

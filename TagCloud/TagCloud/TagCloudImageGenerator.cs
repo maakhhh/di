@@ -1,5 +1,5 @@
-﻿using TagCloud.BitmapGenerator;
-using TagCloud.CloudImageSaver;
+﻿using TagCloud.BitmapGenerators;
+using TagCloud.CloudImageSavers;
 using TagCloud.TextFilters;
 using TagCloud.TextReader;
 

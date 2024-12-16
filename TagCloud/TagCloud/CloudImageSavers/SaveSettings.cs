@@ -1,4 +1,4 @@
-﻿namespace TagCloud.CloudImageSaver;
+﻿namespace TagCloud.CloudImageSavers;
 
 public record class SaveSettings(string Filename, ImageFormat Format);
 

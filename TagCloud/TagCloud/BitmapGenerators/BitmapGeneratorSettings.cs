@@ -1,6 +1,6 @@
 ﻿using System.Drawing;
 
-namespace TagCloud.BitmapGenerator;
+namespace TagCloud.BitmapGenerators;
 
 public record class BitmapGeneratorSettings(
     Size ImageSize,

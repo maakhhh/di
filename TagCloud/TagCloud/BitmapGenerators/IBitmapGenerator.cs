@@ -1,6 +1,6 @@
 ﻿using System.Drawing;
 
-namespace TagCloud.BitmapGenerator;
+namespace TagCloud.BitmapGenerators;
 
 public interface IBitmapGenerator
 {

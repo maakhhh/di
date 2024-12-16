@@ -12,7 +12,7 @@ public class SpiralPositionGeneratorTests
     [TestCase(-1, TestName = "Negative step")]
     public void GeneratorConstructor_ThrowArgumentException_WithUncorrectStep(double step)
     {
-        Action action = () => new SpiralPositionGenerator(new(0, 0), step);
+        Action action = () => new SpiralPositionGenerator(new(0.5, step, new(0, 0)));
         action.Should().Throw<ArgumentException>();
     }
 
@@ -21,7 +21,7 @@ public class SpiralPositionGeneratorTests
     public void Generator_ReturnFirstPoint_LikeCenter(int centerX, int centerY)
     {
         var center = new Point(centerX, centerY);
-        var generator = new SpiralPositionGenerator(center);
+        var generator = new SpiralPositionGenerator(new(0.5, 0.1, center));
         var firstPoint = generator.GetPositions().First();
 
         firstPoint.Should().Be(center);
@@ -31,7 +31,7 @@ public class SpiralPositionGeneratorTests
     public void Generator_ReturnPoints_MovingAwayFromCenter()
     {
         var center = new Point(0, 0);
-        var points = new SpiralPositionGenerator(center, 1)
+        var points = new SpiralPositionGenerator(new(0.5, 1, center))
             .GetPositions().Take(1000).Where((_, id) => id % 10 == 0);
         var prevDistance = double.MinValue;
 

@@ -1,7 +1,7 @@
 ﻿using System.Drawing;
 using TagCloud.CloudLayouter;
 
-namespace TagCloud.BitmapGenerator;
+namespace TagCloud.BitmapGenerators;
 
 public class BitmapGenerator(ICloudLayouter layouter, BitmapGeneratorSettings settings) : IBitmapGenerator
 {

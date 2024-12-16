@@ -1,19 +1,15 @@
 ﻿using System.Drawing;
+using TagCloud.CloudLayouter.PositionGenerator;
 
 namespace TagCloud.CloudLayouter;
 
 public class SpiralPositionGenerator : IPositionGenerator
 {
-    private const double ANGLE_OFFSET = 0.5;
-    private readonly Point center;
-    private readonly double step;
+    private readonly SpiralGeneratorSettings settings;
 
-    public SpiralPositionGenerator(Point center, double step = 0.1)
+    public SpiralPositionGenerator(SpiralGeneratorSettings settings)
     {
-        if (step <= 0)
-            throw new ArgumentException($"{nameof(step)} должен быть больше нуля, передано {step}");
-        this.step = step;
-        this.center = center;
+        this.settings = settings;
     }
 
     public IEnumerable<Point> GetPositions()
@@ -23,13 +19,13 @@ public class SpiralPositionGenerator : IPositionGenerator
 
         while (true)
         {
-            radius = step * angle;
-            x = (int)(center.X + radius * Math.Cos(angle));
-            y = (int)(center.Y + radius * Math.Sin(angle));
+            radius = settings.SpiralStep * angle;
+            x = (int)(settings.Center.X + radius * Math.Cos(angle));
+            y = (int)(settings.Center.Y + radius * Math.Sin(angle));
 
             yield return new(x, y);
 
-            angle += ANGLE_OFFSET;
+            angle += settings.AngleOffset;
         }
     }
 }
