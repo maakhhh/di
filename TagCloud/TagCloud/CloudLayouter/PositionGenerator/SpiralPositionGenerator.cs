@@ -1,19 +1,21 @@
 ﻿using System.Drawing;
 using TagCloud.CloudLayouter.PositionGenerator;
+using TagCloud.SettingsProviders;
 
 namespace TagCloud.CloudLayouter;
 
 public class SpiralPositionGenerator : IPositionGenerator
 {
-    private readonly SpiralGeneratorSettings settings;
+    private readonly ISettingsProvider<SpiralGeneratorSettings> settingsProvider;
 
-    public SpiralPositionGenerator(SpiralGeneratorSettings settings)
+    public SpiralPositionGenerator(ISettingsProvider<SpiralGeneratorSettings> settingsProvider)
     {
-        this.settings = settings;
+        this.settingsProvider = settingsProvider;
     }
 
     public IEnumerable<Point> GetPositions()
     {
+        var settings = settingsProvider.GetSettings();
         int x, y;
         double radius, angle = 0;
 

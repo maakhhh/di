@@ -2,5 +2,5 @@
 
 public interface ITextFilter
 {
-    public List<string> ApplyFilter(List<string> text);
+    public IEnumerable<string> Apply(IEnumerable<string> text);
 }

@@ -1,12 +1,14 @@
 ﻿using System.Drawing;
+using TagCloud.SettingsProviders;
 
 namespace TagCloud.CloudImageSavers;
 
-public class CloudImageSaver(SaveSettings settings) : ICloudImageSaver
+public class CloudImageSaver(ISettingsProvider<SaveSettings> settingsProvider) : ICloudImageSaver
 {
     public string Save(Bitmap image)
     {
-        var filename = $"{settings.Filename}.{settings.Format.ToString().ToLower()}";
+        var settings = settingsProvider.GetSettings();
+        var filename = $"{settings.FileName}.{settings.Format.ToString().ToLower()}";
         image.Save(filename);
         return Path.Combine(Directory.GetCurrentDirectory(), filename);
     }

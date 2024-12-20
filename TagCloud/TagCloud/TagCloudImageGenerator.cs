@@ -5,39 +5,45 @@ using TagCloud.TextReader;
 
 namespace TagCloud;
 
-public class TagCloudImageGenerator(
-    ITextReader reader,
-    ICloudImageSaver saver,
-    IBitmapGenerator bitmapGenerator,
-    IEnumerable<ITextFilter> filters)
+public class TagCloudImageGenerator
 {
-    public string? TagCloudPath { get; private set; }
+    private readonly ITextReader reader;
+    private readonly ICloudImageSaver saver;
+    private readonly IBitmapGenerator bitmapGenerator;
+    private readonly IEnumerable<ITextFilter> filters;
     private const int MAX_FONTSIZE = 100;
     private const int MIN_FONTSIZE = 8;
-    private int maxWordCount;
-    private int minWordCount;
 
-    public void GenerateCloud()
+    public TagCloudImageGenerator(
+        ITextReader reader,
+        ICloudImageSaver saver,
+        IBitmapGenerator bitmapGenerator,
+        IEnumerable<ITextFilter> filters)
     {
-        var text = reader.ReadText();
-
-        var wordsFrequency = filters
-            .Aggregate(text, (word, filter) => filter.ApplyFilter(word))
-            .GroupBy(w => w)
-            .OrderByDescending(words => words.Count())
-            .ToDictionary(words => words.Key, words => words.Count());
-
-        minWordCount = wordsFrequency.Values.Min();
-        maxWordCount = wordsFrequency.Values.Max();
-
-        var words = wordsFrequency
-            .Select(w => new CloudWord(w.Key, GetWordFontSize(w.Value)));
-
-        var bitmap = bitmapGenerator.GenerateBitmapFromWords(words);
-        TagCloudPath = saver.Save(bitmap);
+        this.reader = reader;
+        this.saver = saver;
+        this.bitmapGenerator = bitmapGenerator;
+        this.filters = filters;
     }
 
-    private int GetWordFontSize(int freqCount) =>
+    public string GenerateCloud()
+    {
+        var words = reader.Read();
+
+        var wordsFrequency = filters
+            .Aggregate(words, (word, filter) => filter.Apply(word))
+            .GroupBy(w => w)
+            .ToDictionary(words => words.Key, words => words.Count());
+
+        var cloudWords = wordsFrequency
+            .Select(w => new CloudWord(w.Key, GetWordFontSize(
+                w.Value, wordsFrequency.Values.Min(), wordsFrequency.Values.Max())));
+
+        var bitmap = bitmapGenerator.GenerateBitmapFromWords(cloudWords);
+        return saver.Save(bitmap);
+    }
+
+    private int GetWordFontSize(int freqCount, int minWordCount, int maxWordCount) =>
         MIN_FONTSIZE + (MAX_FONTSIZE - MIN_FONTSIZE) 
         * (freqCount - minWordCount) / (maxWordCount - minWordCount);
 }

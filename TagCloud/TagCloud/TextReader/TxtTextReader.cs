@@ -1,10 +1,12 @@
-﻿namespace TagCloud.TextReader;
+﻿using TagCloud.SettingsProviders;
 
-public class TxtTextReader(TextReaderSettings settings) : ITextReader
+namespace TagCloud.TextReader;
+
+public class TxtTextReader(ISettingsProvider<TextReaderSettings> settingsProvider) : ITextReader
 {
-    public List<string> ReadText()
+    public IEnumerable<string> Read()
     {
-        return File.ReadLines(settings.Path, settings.Encoding)
-            .ToList();
+        var settings = settingsProvider.GetSettings();
+        return File.ReadLines(settings.Path, settings.Encoding);
     }
 }

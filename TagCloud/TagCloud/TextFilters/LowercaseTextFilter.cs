@@ -3,8 +3,6 @@ namespace TagCloud.TextFilters;
 
 public class LowercaseTextFilter : ITextFilter
 {
-    public List<string> ApplyFilter(List<string> text)
-    {
-        throw new NotImplementedException();
-    }
+    public IEnumerable<string> Apply(IEnumerable<string> words) 
+        => words.Select(x => x.ToLower());
 }

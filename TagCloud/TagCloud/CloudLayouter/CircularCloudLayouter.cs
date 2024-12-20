@@ -1,10 +1,9 @@
 ﻿using System.Drawing;
-using TagCloud.CloudLayouter.PositionGenerator;
 
 namespace TagCloud.CloudLayouter;
 public class CircularCloudLayouter : ICloudLayouter
 {
-    private List<Rectangle> rectangles;
+    private readonly List<Rectangle> rectangles;
     private readonly IEnumerator<Point> pointEnumerator;
 
     public CircularCloudLayouter(IPositionGenerator generator)

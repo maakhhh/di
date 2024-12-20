@@ -2,5 +2,5 @@
 
 public interface ITextReader
 {
-    public List<string> ReadText();
+    public IEnumerable<string> Read();
 }
