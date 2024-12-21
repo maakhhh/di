@@ -18,7 +18,7 @@ public class SpiralGeneratorSettings
         Center = center;
     }
 
-    public SpiralGeneratorSettings() : this(0.5, 0.1, new(0, 0))
+    public SpiralGeneratorSettings() : this(0.5, 0.1, new(540, 960))
     {
 
     }

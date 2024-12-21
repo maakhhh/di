@@ -7,6 +7,7 @@ using TagCloud.CloudLayouter.PositionGenerator;
 using TagCloud.SettingsProviders;
 using TagCloud.TextFilters;
 using TagCloud.TextReader;
+using TagCloud.TextSplitters;
 using TagCloudClients.ConsoleClients;
 
 namespace TagCloudClients;
@@ -18,9 +19,11 @@ internal static class ContainerBuilderExtensions
         builder.RegisterType<BitmapGenerator>().As<IBitmapGenerator>();
         builder.RegisterType<CloudImageSaver>().As<ICloudImageSaver>();
         builder.RegisterType<CircularCloudLayouter>().As<ICloudLayouter>();
+        builder.RegisterType<SpiralPositionGenerator>().As<IPositionGenerator>();
         builder.RegisterType<BoringTextFilter>().As<ITextFilter>();
         builder.RegisterType<LowercaseTextFilter>().As<ITextFilter>();
         builder.RegisterType<TxtTextReader>().As<ITextReader>();
+        builder.RegisterType<EnterTextSplitter>().As<ITextSplitter>();
         builder.RegisterType<TagCloudImageGenerator>().AsSelf();
 
         return builder;
@@ -28,20 +31,25 @@ internal static class ContainerBuilderExtensions
 
     public static ContainerBuilder WithSettings(this ContainerBuilder builder)
     {
-        builder.RegisterType<BitmapSettingsProvider>()
-            .As<ISettingsProvider<BitmapGeneratorSettings>>().SingleInstance();
-        builder.RegisterType<SaveSettingsProvider>()
-            .As<ISettingsProvider<SaveSettings>>().SingleInstance();
-        builder.RegisterType<SpiralGeneratorSettingsProvider>()
-            .As<ISettingsProvider<SpiralGeneratorSettings>>().SingleInstance();
-        builder.RegisterType<TextReaderSettingsProvider>()
-            .As<ISettingsProvider<TextReaderSettings>>().SingleInstance();
+        builder.RegisterType<SettingsProvider<BitmapGeneratorSettings>>()
+            .As<ISettingsProvider<BitmapGeneratorSettings>, ISettingsHolder<BitmapGeneratorSettings>>()
+            .SingleInstance();
+        builder.RegisterType<SettingsProvider<SaveSettings>>()
+            .As<ISettingsProvider<SaveSettings>, ISettingsHolder<SaveSettings>>()
+            .SingleInstance();
+        builder.RegisterType<SettingsProvider<SpiralGeneratorSettings>>()
+            .As<ISettingsProvider<SpiralGeneratorSettings>, ISettingsHolder<SpiralGeneratorSettings>>()
+            .SingleInstance();
+        builder.RegisterType<SettingsProvider<TextReaderSettings>>()
+            .As<ISettingsProvider<TextReaderSettings>, ISettingsHolder<TextReaderSettings>>()
+            .SingleInstance();
 
         return builder;
     }
 
-    public static ContainerBuilder WithConsoleClient(this ContainerBuilder builder)
+    public static ContainerBuilder WithConsoleClient(this ContainerBuilder builder, string[] args)
     {
+        builder.RegisterInstance(args);
         builder.RegisterType<ConsoleClient>().As<IClient>();
         return builder;
     }

@@ -9,7 +9,7 @@ public class CloudImageSaver(ISettingsProvider<SaveSettings> settingsProvider) :
     {
         var settings = settingsProvider.GetSettings();
         var filename = $"{settings.FileName}.{settings.Format.ToString().ToLower()}";
-        image.Save(filename);
+        image.Save(filename, settings.Format);
         return Path.Combine(Directory.GetCurrentDirectory(), filename);
     }
 }

@@ -1,9 +1,11 @@
-﻿namespace TagCloud.CloudImageSavers;
+﻿using System.Drawing.Imaging;
+
+namespace TagCloud.CloudImageSavers;
 
 public record SaveSettings
 {
     public string FileName { get; private set; } = "output";
-    public ImageFormat Format { get; private set; } = ImageFormat.PNG;
+    public ImageFormat Format { get; private set; } = ImageFormat.Png;
 
     public SaveSettings() { }
 
@@ -12,11 +14,4 @@ public record SaveSettings
         FileName = fileName;
         Format = format;
     }
-}
-
-public enum ImageFormat
-{
-    PNG,
-    JPEG,
-    JPG
 }

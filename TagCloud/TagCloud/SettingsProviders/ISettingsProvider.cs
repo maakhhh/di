@@ -1,7 +1,6 @@
 ﻿namespace TagCloud.SettingsProviders;
 
-public interface ISettingsProvider<T>
+public interface ISettingsProvider<out T> where T : new()
 {
     public T GetSettings();
-    public void SetSettings(T settings);
 }
