@@ -1,3 +1,5 @@
-﻿namespace TagCloud.BitmapGenerators;
+﻿using System.Drawing;
 
-public record class CloudWord(string Word, int FontSize);
+namespace TagCloud.BitmapGenerators;
+
+public record CloudWord(string Word, int FontSize);

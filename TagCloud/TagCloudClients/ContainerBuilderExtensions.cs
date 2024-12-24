@@ -23,7 +23,10 @@ internal static class ContainerBuilderExtensions
         builder.RegisterType<BoringTextFilter>().As<ITextFilter>();
         builder.RegisterType<LowercaseTextFilter>().As<ITextFilter>();
         builder.RegisterType<TxtTextReader>().As<ITextReader>();
+        builder.RegisterType<DocxTextReader>().As<ITextReader>();
+        builder.RegisterType<CsvTextReader>().As<ITextReader>();
         builder.RegisterType<EnterTextSplitter>().As<ITextSplitter>();
+        builder.RegisterType<TextReaderProvider>().AsSelf();
         builder.RegisterType<TagCloudImageGenerator>().AsSelf();
 
         return builder;

@@ -8,7 +8,7 @@ namespace TagCloud;
 
 public class TagCloudImageGenerator
 {
-    private readonly ITextReader reader;
+    private readonly TextReaderProvider readerProvider;
     private readonly ICloudImageSaver saver;
     private readonly IBitmapGenerator bitmapGenerator;
     private readonly ITextSplitter splitter;
@@ -17,14 +17,14 @@ public class TagCloudImageGenerator
     private const int MIN_FONTSIZE = 8;
 
     public TagCloudImageGenerator(
-        ITextReader reader,
+        TextReaderProvider readerProvider,
         ITextSplitter splitter,
         ICloudImageSaver saver,
         IBitmapGenerator bitmapGenerator,
         IEnumerable<ITextFilter> filters)
     {
         this.splitter = splitter;
-        this.reader = reader;
+        this.readerProvider = readerProvider;
         this.saver = saver;
         this.bitmapGenerator = bitmapGenerator;
         this.filters = filters;
@@ -32,6 +32,7 @@ public class TagCloudImageGenerator
 
     public string GenerateCloud()
     {
+        var reader = readerProvider.GetActualReader();
         var words = splitter.Split(reader.Read());
 
         var wordsFrequency = filters
