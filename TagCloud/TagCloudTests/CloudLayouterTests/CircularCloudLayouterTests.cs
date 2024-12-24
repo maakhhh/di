@@ -2,6 +2,8 @@ using FluentAssertions;
 using NUnit.Framework.Interfaces;
 using System.Drawing;
 using TagCloud.CloudLayouter;
+using TagCloud.CloudLayouter.PositionGenerator;
+using TagCloud.SettingsProviders;
 
 
 namespace TagsCloudVisualizationTests;
@@ -9,14 +11,23 @@ namespace TagsCloudVisualizationTests;
 [TestFixture]
 public class CircularCloudLayouterTests
 {
+    private SettingsProvider<SpiralGeneratorSettings> settingsProvider;
+
+    [SetUp]
+    public void SetUp()
+    {
+        settingsProvider = new SettingsProvider<SpiralGeneratorSettings>();
+    }
+
     [TestCase(0, 1, TestName = "Zero width")]
     [TestCase(1, 0, TestName = "Zero height")]
     [TestCase(-1, 1, TestName = "Negative width")]
     [TestCase(1, -1, TestName = "Negative height")]
     public void Layouter_ThrowArgumentException_WithUncorrectData(int width, int height)
     {
+        settingsProvider.SetSettings(new(0.1, 0.5, Point.Empty));
         var layouter = new CircularCloudLayouter(
-            new SpiralPositionGenerator(new(0.5, 0.1, new(0,0))));
+            new SpiralPositionGenerator(settingsProvider));
         var size = new Size(width, height);
         Action action = () => layouter.PutNextRectangle(size);
 
@@ -27,8 +38,9 @@ public class CircularCloudLayouterTests
     [TestCase(1, 1, TestName = "Non-zero center")]
     public void LayouterPutFirstRectangleInCenter(int x, int y)
     {
+        settingsProvider.SetSettings(new(0.5, 0.1, new(x, y)));
         var layouter = new CircularCloudLayouter(
-            new SpiralPositionGenerator(new(0.5, 0.1, new(x, y))));
+            new SpiralPositionGenerator(settingsProvider));
         var rectangleSize = new Size(10, 10);
 
         var actualRectangle = layouter.PutNextRectangle(rectangleSize);

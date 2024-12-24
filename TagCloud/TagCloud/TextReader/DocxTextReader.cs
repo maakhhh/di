@@ -2,7 +2,6 @@
 using DocumentFormat.OpenXml.Wordprocessing;
 using System.Text;
 using TagCloud.SettingsProviders;
-using Xceed.Words.NET;
 
 namespace TagCloud.TextReader;
 

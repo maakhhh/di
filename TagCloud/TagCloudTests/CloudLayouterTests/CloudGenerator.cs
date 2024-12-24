@@ -1,4 +1,6 @@
 ﻿using System.Drawing;
+using TagCloud.CloudLayouter.PositionGenerator;
+using TagCloud.SettingsProviders;
 
 namespace TagCloud.CloudLayouter;
 
@@ -6,9 +8,11 @@ public static class CloudGenerator
 {
     public static ICloudLayouter GenerateRandomCloudWithCenter(Point center, int rectangleCount)
     {
+        var settingsProvider = new SettingsProvider<SpiralGeneratorSettings>();
+        settingsProvider.SetSettings(new(0.5, 0.1, center));
         var random = new Random();
         var layouter = new CircularCloudLayouter(
-            new SpiralPositionGenerator(new(0.5, 0.1, center)));
+            new SpiralPositionGenerator(settingsProvider));
 
         for (var i = 0; i < rectangleCount; i++)
         {

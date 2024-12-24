@@ -1,6 +1,8 @@
 ﻿using FluentAssertions;
 using System.Drawing;
 using TagCloud.CloudLayouter;
+using TagCloud.CloudLayouter.PositionGenerator;
+using TagCloud.SettingsProviders;
 
 
 namespace TagsCloudVisualizationTests;
@@ -8,12 +10,14 @@ namespace TagsCloudVisualizationTests;
 [TestFixture]
 public class SpiralPositionGeneratorTests
 {
+    private SettingsProvider<SpiralGeneratorSettings> settingsProvider = new();
+
     [TestCase(0, TestName = "Zero step")]
     [TestCase(-1, TestName = "Negative step")]
     public void GeneratorConstructor_ThrowArgumentException_WithUncorrectStep(double step)
     {
-        Action action = () => new SpiralPositionGenerator(new(0.5, step, new(0, 0)));
-        action.Should().Throw<ArgumentException>();
+        Action action = () => settingsProvider.SetSettings(new(0.5, step, Point.Empty));
+        action.Should().Throw<ArgumentOutOfRangeException>();
     }
 
     [TestCase(0, 0, TestName = "Zero center")]
@@ -21,7 +25,8 @@ public class SpiralPositionGeneratorTests
     public void Generator_ReturnFirstPoint_LikeCenter(int centerX, int centerY)
     {
         var center = new Point(centerX, centerY);
-        var generator = new SpiralPositionGenerator(new(0.5, 0.1, center));
+        settingsProvider.SetSettings(new(0.5, 0.1, center));
+        var generator = new SpiralPositionGenerator(settingsProvider);
         var firstPoint = generator.GetPositions().First();
 
         firstPoint.Should().Be(center);
@@ -31,7 +36,8 @@ public class SpiralPositionGeneratorTests
     public void Generator_ReturnPoints_MovingAwayFromCenter()
     {
         var center = new Point(0, 0);
-        var points = new SpiralPositionGenerator(new(0.5, 1, center))
+        settingsProvider.SetSettings(new(0.5, 1, center));
+        var points = new SpiralPositionGenerator(settingsProvider)
             .GetPositions().Take(1000).Where((_, id) => id % 10 == 0);
         var prevDistance = double.MinValue;
 

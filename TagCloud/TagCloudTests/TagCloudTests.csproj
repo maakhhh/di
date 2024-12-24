@@ -10,6 +10,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="ApprovalTests" Version="6.0.0" />
+    <PackageReference Include="Autofac" Version="8.2.0" />
     <PackageReference Include="coverlet.collector" Version="6.0.0" />
     <PackageReference Include="FluentAssertions" Version="7.0.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
@@ -23,7 +25,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\TagCloudClients\TagCloudClients.csproj" />
     <ProjectReference Include="..\TagCloud\TagCloud.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Samples\" />
   </ItemGroup>
 
 </Project>
