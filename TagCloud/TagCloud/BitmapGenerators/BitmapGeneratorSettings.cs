@@ -4,12 +4,16 @@ namespace TagCloud.BitmapGenerators;
 
 public record BitmapGeneratorSettings
 {
-    public Size ImageSize { get; private set; } = new Size(1080, 1920);
-    public Color BackgroundColor { get; private set; } = Color.White;
-    public Color WordColor { get; private set; } = Color.Black;
-    public FontFamily FontFamily { get; private set; } = new FontFamily("Arial");
+    public Size ImageSize { get; private set; }
+    public Color BackgroundColor { get; private set; }
+    public Color WordColor { get; private set; }
+    public FontFamily FontFamily { get; private set; }
 
-    public BitmapGeneratorSettings() { }
+    public BitmapGeneratorSettings()
+    : this(new Size(1080, 1920), Color.White, Color.Black, new FontFamily("Arial"))
+    {
+        
+    }
 
     public BitmapGeneratorSettings(
         Size imageSize,

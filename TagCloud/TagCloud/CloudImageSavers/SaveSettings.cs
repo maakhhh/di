@@ -4,10 +4,13 @@ namespace TagCloud.CloudImageSavers;
 
 public record SaveSettings
 {
-    public string FileName { get; private set; } = "output";
-    public ImageFormat Format { get; private set; } = ImageFormat.Png;
+    public string FileName { get; private set; }
+    public ImageFormat Format { get; private set; }
 
-    public SaveSettings() { }
+    public SaveSettings() : this("output", ImageFormat.Png)
+    {
+        
+    }
 
     public SaveSettings(string fileName, ImageFormat format)
     {

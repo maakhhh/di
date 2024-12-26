@@ -4,6 +4,6 @@ namespace TagCloud.CloudLayouter;
 
 public interface ICloudLayouter
 {
-    public List<Rectangle> GetRectangles();
-    public Rectangle PutNextRectangle(Size rectangleSize);
+    List<Rectangle> GetRectangles();
+    Rectangle PutNextRectangle(Size rectangleSize);
 }

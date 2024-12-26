@@ -1,12 +1,12 @@
 ﻿using FluentAssertions;
 using TagCloud.TextSplitters;
 
-namespace TagCloudTests.TextSpliitersTests;
+namespace TagCloudTests.TextSplittersTests;
 
 [TestFixture]
-public class EnterTextSplitterTests
+public class NewLineTextSplitterTests
 {
-    private EnterTextSplitter splitter = new();
+    private readonly NewLineTextSplitter splitter = new();
 
     [Test]
     public void NotThrow_WhenEmptyText()
@@ -25,10 +25,10 @@ public class EnterTextSplitterTests
     [TestCase("a", new string[1] { "a" }, TestName = "One word")]
     [TestCase("a\nb", new string[2] { "a", "b" }, TestName = "Several words")]
     [TestCase("a\n\nb", new string[2] { "a", "b" }, TestName = "Skip empty words")]
-    public void SplitTextCorrect(string text, string[] exxpectedResult)
+    public void SplitTextCorrect(string text, string[] expectedResult)
     {
         var actualResult = splitter.Split(text).ToArray();
 
-        actualResult.Should().BeEquivalentTo(exxpectedResult);
+        actualResult.Should().BeEquivalentTo(expectedResult);
     }
 }

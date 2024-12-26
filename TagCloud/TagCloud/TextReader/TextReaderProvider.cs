@@ -24,7 +24,7 @@ public class TextReaderProvider
 
         var format = splittedPath.Last();
 
-        var reader = readers.Where(r => r.GetFormats().Contains(format.ToLower())).FirstOrDefault();
+        var reader = readers.FirstOrDefault(r => r.SupportedFormats().Contains(format.ToLower()));
 
         if (reader == null)
             throw new ArgumentException($"Данный формат файла не поддерживается: {format}");

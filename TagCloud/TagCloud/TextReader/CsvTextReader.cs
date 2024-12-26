@@ -8,14 +8,14 @@ namespace TagCloud.TextReader;
 
 public class CsvTextReader : ITextReader
 {
-    private ISettingsProvider<TextReaderSettings> settingsProvider;
+    private readonly ISettingsProvider<TextReaderSettings> settingsProvider;
 
     public CsvTextReader(ISettingsProvider<TextReaderSettings> settingsProvider)
     {
         this.settingsProvider = settingsProvider;
     }
 
-    public string[] GetFormats() => ["csv"];
+    public IReadOnlyList<string> SupportedFormats() => ["csv"];
 
     public string Read()
     {
@@ -28,7 +28,7 @@ public class CsvTextReader : ITextReader
         using var reader = new StreamReader(settings.Path);
         using var csv = new CsvReader(reader, config);
 
-        return string.Join('\n', csv.GetRecords<Cell>().Select(c => c.Word));
+        return string.Join(Environment.NewLine, csv.GetRecords<Cell>().Select(c => c.Word));
     }
 
     private class Cell

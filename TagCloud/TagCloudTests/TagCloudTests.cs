@@ -43,7 +43,7 @@ public class TagCloudTests
         builder.RegisterType<TxtTextReader>().As<ITextReader>();
         builder.RegisterType<DocxTextReader>().As<ITextReader>();
         builder.RegisterType<CsvTextReader>().As<ITextReader>();
-        builder.RegisterType<EnterTextSplitter>().As<ITextSplitter>();
+        builder.RegisterType<NewLineTextSplitter>().As<ITextSplitter>();
         builder.RegisterType<TextReaderProvider>().AsSelf();
         builder.RegisterType<TagCloudImageGenerator>().AsSelf();
         builder.RegisterType<SettingsProvider<BitmapGeneratorSettings>>()

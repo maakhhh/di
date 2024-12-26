@@ -18,7 +18,7 @@ public class LowercaseTextFilterTests
 
     [TestCase(new string[1] { "a" }, new string[1] { "a" }, TestName = "Do nothing")]
     [TestCase(new string[1] { "A" }, new string[1] { "a" }, TestName = "One word")]
-    [TestCase(new string[3] { "a", "A", "B" }, new string[3] { "a", "a", "b" }, TestName = "Do nothing")]
+    [TestCase(new string[3] { "a", "A", "B" }, new string[3] { "a", "a", "b" }, TestName = "Several words")]
     public void FilterApplyCorrect(string[] words, string[] expectedResult)
     {
         var result = filter.Apply(words);

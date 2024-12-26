@@ -16,18 +16,30 @@ internal static class ContainerBuilderExtensions
 {
     public static ContainerBuilder WithServices(this ContainerBuilder builder)
     {
-        builder.RegisterType<BitmapGenerator>().As<IBitmapGenerator>();
-        builder.RegisterType<CloudImageSaver>().As<ICloudImageSaver>();
-        builder.RegisterType<CircularCloudLayouter>().As<ICloudLayouter>();
-        builder.RegisterType<SpiralPositionGenerator>().As<IPositionGenerator>();
-        builder.RegisterType<BoringTextFilter>().As<ITextFilter>();
-        builder.RegisterType<LowercaseTextFilter>().As<ITextFilter>();
-        builder.RegisterType<TxtTextReader>().As<ITextReader>();
-        builder.RegisterType<DocxTextReader>().As<ITextReader>();
-        builder.RegisterType<CsvTextReader>().As<ITextReader>();
-        builder.RegisterType<EnterTextSplitter>().As<ITextSplitter>();
-        builder.RegisterType<TextReaderProvider>().AsSelf();
-        builder.RegisterType<TagCloudImageGenerator>().AsSelf();
+        builder.RegisterType<BitmapGenerator>().As<IBitmapGenerator>()
+            .SingleInstance();
+        builder.RegisterType<CloudImageSaver>().As<ICloudImageSaver>()
+            .SingleInstance();
+        builder.RegisterType<CircularCloudLayouter>().As<ICloudLayouter>()
+            .SingleInstance();
+        builder.RegisterType<SpiralPositionGenerator>().As<IPositionGenerator>()
+            .SingleInstance();
+        builder.RegisterType<BoringTextFilter>().As<ITextFilter>()
+            .SingleInstance();
+        builder.RegisterType<LowercaseTextFilter>().As<ITextFilter>()
+            .SingleInstance();
+        builder.RegisterType<TxtTextReader>().As<ITextReader>()
+            .SingleInstance();
+        builder.RegisterType<DocxTextReader>().As<ITextReader>()
+            .SingleInstance();
+        builder.RegisterType<CsvTextReader>().As<ITextReader>()
+            .SingleInstance();
+        builder.RegisterType<NewLineTextSplitter>().As<ITextSplitter>()
+            .SingleInstance();
+        builder.RegisterType<TextReaderProvider>().AsSelf()
+            .SingleInstance();
+        builder.RegisterType<TagCloudImageGenerator>().AsSelf()
+            .SingleInstance();
 
         return builder;
     }
@@ -52,8 +64,8 @@ internal static class ContainerBuilderExtensions
 
     public static ContainerBuilder WithConsoleClient(this ContainerBuilder builder, string[] args)
     {
-        builder.RegisterInstance(args);
-        builder.RegisterType<ConsoleClient>().As<IClient>();
+        builder.RegisterInstance(args).SingleInstance();;
+        builder.RegisterType<ConsoleClient>().As<IClient>().SingleInstance();;
         return builder;
     }
 }

@@ -2,5 +2,5 @@
 
 public interface IClient
 {
-    public void Run();
+    void Run();
 }

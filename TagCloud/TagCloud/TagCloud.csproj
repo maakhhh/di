@@ -11,6 +11,12 @@
     <Compile Remove="TextFilters\Dictionaries\**" />
     <EmbeddedResource Remove="TextFilters\Dictionaries\**" />
     <None Remove="TextFilters\Dictionaries\**" />
+    <None Include="TextFilters\Dictionaries\en.aff">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="TextFilters\Dictionaries\en.dic">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
   <ItemGroup>

@@ -4,5 +4,5 @@ namespace TagCloud.CloudLayouter;
 
 public interface IPositionGenerator
 {
-    public IEnumerable<Point> GetPositions();
+    IEnumerable<Point> GetPositions();
 }

@@ -4,9 +4,17 @@ using TagCloud.SettingsProviders;
 
 namespace TagCloud.BitmapGenerators;
 
-public class BitmapGenerator(
-    ICloudLayouter layouter, ISettingsProvider<BitmapGeneratorSettings> settingsProvider) : IBitmapGenerator
+public class BitmapGenerator: IBitmapGenerator
 {
+    private readonly ISettingsProvider<BitmapGeneratorSettings> settingsProvider;
+    private readonly ICloudLayouter layouter;
+
+    public BitmapGenerator(ICloudLayouter layouter, ISettingsProvider<BitmapGeneratorSettings> settingsProvider)
+    {
+        this.settingsProvider = settingsProvider;
+        this.layouter = layouter;
+    }
+    
     public Bitmap GenerateBitmapFromWords(IEnumerable<CloudWord> words)
     {
         var padding = 1.5f;

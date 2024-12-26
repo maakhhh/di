@@ -4,7 +4,7 @@ namespace TagCloud.TextReader;
 
 public class TxtTextReader(ISettingsProvider<TextReaderSettings> settingsProvider) : ITextReader
 {
-    public string[] GetFormats() => ["txt"];
+    public IReadOnlyList<string> SupportedFormats() => ["txt"];
 
     public string Read()
     {

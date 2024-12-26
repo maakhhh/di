@@ -4,5 +4,5 @@ namespace TagCloud.CloudImageSavers;
 
 public interface ICloudImageSaver
 {
-    public string Save(Bitmap image);
+    string Save(Bitmap image);
 }

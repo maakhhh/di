@@ -2,5 +2,5 @@
 
 public interface ITextSplitter
 {
-    public IEnumerable<string> Split(string text);
+    IEnumerable<string> Split(string text);
 }

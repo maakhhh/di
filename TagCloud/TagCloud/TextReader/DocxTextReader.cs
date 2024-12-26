@@ -14,7 +14,7 @@ public class DocxTextReader : ITextReader
         this.settingsProvider = settingsProvider;
     }
 
-    public string[] GetFormats() => ["doc", "docx"];
+    public IReadOnlyList<string> SupportedFormats() => ["doc", "docx"];
 
     public string Read()
     {
@@ -29,7 +29,7 @@ public class DocxTextReader : ITextReader
         var sb = new StringBuilder();
 
         foreach(var text in texts.Where(t => t != string.Empty))
-            sb.Append($"{text}\n");
+            sb.Append($"{text}{Environment.NewLine}");
 
         return sb.ToString();
     }
