@@ -59,7 +59,7 @@ public class TagCloudTests
             .As<ISettingsProvider<TextReaderSettings>, ISettingsHolder<TextReaderSettings>>()
             .SingleInstance();
 
-        builder.RegisterInstance(new string[2] { "-i", "input.csv" });
+        builder.RegisterInstance(new string[2] { "-i", "Samples/input.csv" });
         builder.RegisterType<ConsoleClient>().As<IClient>();
         using var container = builder.Build();
         return container.Resolve<IClient>();

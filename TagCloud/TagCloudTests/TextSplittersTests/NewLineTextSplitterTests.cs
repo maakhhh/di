@@ -22,11 +22,12 @@ public class NewLineTextSplitterTests
         action.Should().Throw<ArgumentNullException>();
     }
 
-    [TestCase("a", new string[1] { "a" }, TestName = "One word")]
-    [TestCase("a\nb", new string[2] { "a", "b" }, TestName = "Several words")]
-    [TestCase("a\n\nb", new string[2] { "a", "b" }, TestName = "Skip empty words")]
-    public void SplitTextCorrect(string text, string[] expectedResult)
+    [TestCase(new string[] { "a" }, new string[] { "a" }, TestName = "One word")]
+    [TestCase(new string[] { "a", "b" }, new string[] { "a", "b" }, TestName = "Several words")]
+    [TestCase(new string[] { "a", "", "b" }, new string[] { "a", "b" }, TestName = "Skip empty words")]
+    public void SplitTextCorrect(string[] words, string[] expectedResult)
     {
+        var text = string.Join(Environment.NewLine, words);
         var actualResult = splitter.Split(text).ToArray();
 
         actualResult.Should().BeEquivalentTo(expectedResult);

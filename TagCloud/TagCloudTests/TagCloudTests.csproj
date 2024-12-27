@@ -33,4 +33,10 @@
     <Folder Include="Samples\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Samples\input.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
